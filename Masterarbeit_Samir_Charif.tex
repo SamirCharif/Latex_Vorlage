@@ -1,0 +1,136 @@
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Hauptdatei, Wurzel des Dokuments
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%
+%  Gerüst:
+%   * Version 1.00
+% 	* erstellt von: Samir Charif
+% 	* Mai 2022
+% 	* Mail: s.charif@tu-braunschweg.de
+% !TeX program = lualatex
+
+
+%% Import der Formatierung
+% only change this if you know what you do!!!
+\input{Formatierung/styles.tex}
+
+% change this for individual style of table and flowchartstyle
+%\input{Formatierung/appearance.tex}
+
+% Eigene Farben
+\input{Formatierung/colors.tex}
+
+%% Import Benutzerdefinierter Packages
+% Circuit Elemente
+%\input{Formatierung/circuitElement.tex}
+
+% Import benutzerdefinierter Befehle
+\input{Formatierung/newcommands.tex}
+
+
+
+
+
+\renewcommand*{\glscatnamefmt}[1]{\textbf{#1}} % category text format
+
+% relative path to different location possible via: ../path/Literatur.bib 
+% The bibfile can be created by Citavi or JabRef for example
+
+% Was ist ein Abstract? 
+% Ein kurze, prägnante Aussage/Zusammen über den Inhalt und die Ergebnisse der Arbeit. Wird unteranderem zur Katalogisierung für Bibliografien genutzt und wird zu diesem Zweck auf der Artikelsprache und in Englisch verfasst. Sollte je Sprache eine halbe seite nicht übersteigen. Kann aus dem Fazit extrahiert werden.
+\newcommand{\abstractger}{Deutsches Abstrakt.}% put german abstract here
+
+\newcommand{\abstracteng}{Englisch Abstrakt.}% put english abstract here
+% Muss nach Abstrakt erfolgen, da dieses den Metadaten angehängt wird.
+% Für die Daten des PDF
+\input{Formatierung/datenDerArbeit.tex}
+
+
+
+% Literaturverzeichnis
+\addbibresource{Kapitel/literaturverzeichnis.bib} 
+
+
+\begin{document}\selectlanguage{ngerman}
+	
+	\onehalfspacing
+	\input{Kapitel/titelblatt.tex}
+
+	%	% Inhaltsverzeichnis
+	\cleardoublepage % Seitenumbruch erzwingen vor Änderung des Nummerierungsstils
+	\pagenumbering{roman} % Nummerierung der Seiten ab hier: i, ii, iii, iv...
+	
+	\phantomsection
+	\addcontentsline{toc}{chapter}{Aufgabenstellung}
+	\includepdf[pages=1-]{Kapitel/Aufgabenstellung_Christoph_Lueneburg.pdf}
+		
+		%Seitenzahlen etc.
+		\pagestyle{scrheadings} % Ab hier mit Kopf- und Fusszeile 
+	
+%	 Danksagung
+	\input{Kapitel/vorwort.tex}
+	
+	% Erklärung
+	\input{Kapitel/abschlusserklaerung.tex}
+	
+%		\input{Kapitel/kurzfassung.tex}
+	
+
+	
+	% Thesen (Nur bei Bedarf nutzen)
+	% \input{thesen.tex}
+	
+	% Inhaltsverzeichnis
+	\tableofcontents
+
+		
+%	 Formelzeichen Verzeichniss
+	\newpage
+		\printglossary[title=Nomenclature]
+%	\printglossary[type=symbolslist, style=MyStyle]
+	\newpage
+%	
+
+	
+%	 Abbildungsverzeichnis einbinden
+	\input{Kapitel/anhang_abbildungsverzeichnis.tex}
+	
+	% Tabellenverzeichnis einbinden
+	\input{Kapitel/anhang_tabellenverzeichnis.tex}
+	
+%
+	
+
+%	
+	% Die einzelnen Kapitel
+	\cleardoublepage % Seitenumbruch erzwingen vor Änderung des Nummerierungsstils
+	\pagenumbering{arabic} % Nummerierung der Seiten ab hier: 1, 2, 3, 4..
+	
+	% Kapitel
+	\input{Kapitel/kapitel1.tex}
+	\label{chap:Kapitel1}
+
+
+	% Anhang mit Römischien Seitenzahlen
+	\clearpage % Seitenumbruch erzwingen vor Änderung des Nummerierungsstils
+	\appendix
+	\pagenumbering{Roman}
+
+	\part*{Anhang} 
+	\chapter{Anhang: Expose}
+	\input{Kapitel/Anhang/Expose.tex}
+	\label{chap:Expose}
+
+	\chapter{Anhang: Aufgabenliste}
+	\input{Kapitel/Anhang/Aufgabenliste.tex}
+	\label{chap:Aufgabenliste}		
+
+	\chapter{Anhang: GanttChart}
+	\input{Kapitel/Anhang/GanttChart.tex}
+	\label{chap:GanttChart}		
+				
+	% Literaturverzeichnis einbinden
+	\input{Kapitel/literaturverzeichnis.tex}
+	\label{chap:literaturverzeichnis}
+
+\end{document}
