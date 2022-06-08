@@ -28,19 +28,8 @@
 \input{Formatierung/newcommands.tex}
 
 
-
-
-
-\renewcommand*{\glscatnamefmt}[1]{\textbf{#1}} % category text format
-
-% relative path to different location possible via: ../path/Literatur.bib 
-% The bibfile can be created by Citavi or JabRef for example
-
-% Was ist ein Abstract? 
-% Ein kurze, prägnante Aussage/Zusammen über den Inhalt und die Ergebnisse der Arbeit. Wird unteranderem zur Katalogisierung für Bibliografien genutzt und wird zu diesem Zweck auf der Artikelsprache und in Englisch verfasst. Sollte je Sprache eine halbe seite nicht übersteigen. Kann aus dem Fazit extrahiert werden.
-\newcommand{\abstractger}{Deutsches Abstrakt.}% put german abstract here
-
-\newcommand{\abstracteng}{Englisch Abstrakt.}% put english abstract here
+% Abstract 
+\input{Kapitel/abstract.tex}
 % Muss nach Abstrakt erfolgen, da dieses den Metadaten angehängt wird.
 % Für die Daten des PDF
 \input{Formatierung/datenDerArbeit.tex}

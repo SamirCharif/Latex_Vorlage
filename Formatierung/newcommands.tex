@@ -45,43 +45,11 @@
 %% Textbefehle
 %\newcommand{\markup}[1]{\textbf{#1}}	% Fettschreiben
 
+\renewcommand*{\glscatnamefmt}[1]{\textbf{#1}} % category text format
+
 
 \RequirePackage{iftex}
 \ifluatex
 \RequirePackage{luatex85}
 \fi
 
-
-
-%
-%\newif\ifcoolpdf
-%\ifpdf
-%\ifluatex
-%\coolpdftrue
-%\fi
-%\ifpdftex
-%\coolpdftrue
-%\fi
-%\fi
-%
-%\ifcoolpdf
-% \AtEndDocument{%
-%	 \immediate\pdfobj {
-%		 <<
-%		 /Fields [\ctip@form@fields]
-%		 /NeedAppearances true
-%		 >>
-%		 }%
-%	 \pdfcatalog {
-%		 /AcroForm \the\pdflastobj\space 0 R
-%		 }%
-%	 }
-% \fi
-% 
-%\ifcoolpdf
-%  \setbox\@tempboxa=\hbox{}
-%  \immediate\pdfxform\@tempboxa
-%  \edef\ctip@empty@icon{\the\pdflastxform}
-%\fi
-%
-%\newcommand*{\ctip@tip@number}{0}
