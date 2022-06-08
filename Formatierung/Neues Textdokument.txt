@@ -1,0 +1,31 @@
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Dekblatt, Wurzel des Dokuments
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%
+%  Gerüst:
+%  * Version 0.1
+%  * B. Ing. Samir Charif, s.charif@tu-braunschweig.de
+
+%
+%  Für Hauptseminare, Studienarbeiten, Diplomarbeiten
+%
+%  Autor           : Max Mustermann
+%  Letzte Änderung : 04.12.2021
+%
+% Hier in die zweite geschweifte Klammer jeweils
+% die persönlichen Daten und das Thema der Arbeit eintragen:
+
+\newcommand{\artderausarbeitung}{Masterarbeit}
+\newcommand{\namedesautors}{Samir Charif}
+\newcommand{\themaderarbeit}{Beobachtung der Aushärtungsreaktion von
+	Epoxidharz durch Anpassung von Modellparametern
+	an gemessene elektrische Impedanzspektren}
+\newcommand{\hochschule}{TU Braunschweig}
+\newcommand{\studiengang}{Master Maschinenbau}
+\newcommand{\martrikelnummer}{4992228}
+\newcommand{\bearbeitungszeit}{6 Monate}
+\newcommand{\jahrderabgabe}{2022}
+\newcommand{\monatderabgabe}{02}
+\newcommand{\tagderabgabe}{25}
+\newcommand{\erstpruefer}{Prof. Dr.-Ing. Michael Sinapius (\hochschule - ima)}
+\newcommand{\zweitpruefer}{M.Sc. Alexander Kyriazis (\hochschule - ima)}

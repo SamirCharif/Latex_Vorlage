@@ -1,0 +1,145 @@
+%  Kapitel 1:
+%  * Version 1.0
+%  * Samir Charif
+%  * s.charif@tu-braunschweig.de
+%  * Student, TU Braunschweig
+%  * Mai 2022
+%
+\chapter{Formatierung}
+\label{chap:Formatierung}
+
+\section[Kurzer Title]{Sehr sehr sehr sehr sehr sehr sehr sehr langer Title}
+\label{sec:Title}
+
+
+\section{Nomenklatur}
+\label{sec:nomenklatur}
+Die Verwendung der einzelnen Befehle der Nomenklatur wird im Folgenden erklärt. 
+Indices werden nicht kursiv geschrieben, außer es sind Laufindices. Das nicht kursiv schreiben in der Indices wird erreicht, indem bei der Erstellung eines neuen Glossaryeintrags der Befehl \verb=\mathrm{}= verwendet wird (siehe Beispieldatei).  
+
+
+\begin{description}
+	\item[Variable aufrufen:] \verb=\glsc{rho}= -> \glsh{rho}\\
+						\verb=\glsc{mat.A}= -> \glsh{mat.A}
+% 	\item[Aufrechten Indice anfügen:] A\textbackslash sbuc\{v\} fügt aufrechten Indice an $ A\sbuc{v} A\sbu{v}$
+	\item[Index] Index \verb=\glsub{mat.A}=\glsub{D}{i}
+	\item[Tiefgestellt aufrecht:]  \verb=\glsub{d}{v}= -> \glsub{d}{v}.
+	\item[2xTiefgestellt:]  \glsubs{D}{w}{a}, beide Indices auf gleicher Höhe.
+%	\item[2xTiefgestellt hover:] \glsubc{D}{w}, beide Indices auf gleicher Höhe.
+	\item[Index anhängen] \glsvi{T}{k}
+	\item[Index 2x anhängen]  \glsvisub{T}{z}{v}, Index tiefer angehängt.
+	\item[Aktzente:] \glsac[dot]{m} und \glsac[bar]{T}
+\end{description}
+
+Mein Formelzeichen:   \gls{k}, \gls{mat.A} and \gls{mat.b} $\glsub{d}{v}$ 
+		\glsh{k} \glsac[bar]{T} \gls{rho}% \glsc{symb:R}, \glsc{symb:Re}\\
+
+\subsection{Akronyme}
+\label{subsec:akronyme}
+Befehle des Glossarie Paketes:
+\begin{description}
+	\item[Akronym:]	 Akronyme werden beim ersten Mal ausgeschrieben \verb=\gls{ODE}= \gls{ODE}
+	\item[Akronym ausgeschrieben in gewählter Sprache:] \verb=\gls{ODE}= \gls{ODE}
+	\item[Akronym kurz\&klein:] \verb=\acrshort{kS}= \acrshort{kS} 
+	\item[Akronym erster Buchstabe\&kurz:] \verb=\Acrshort{kS}= \Acrshort{kS} 
+	\item[Akronym groß\&klein:] \verb=\ACRshort{kS}= \ACRshort{kS} 
+	\item[Akronym klein\&ausgeschrieben:] \verb=\acrlong{kS}= \acrlong{kS} 
+	\item[Akronym erster Buchstabe groß\&ausgeschrieben:] \verb=\Acrlong{kS}= \\ \Acrlong{kS} 
+	\item[Akronym ausgeschrieben\&groß:] \verb=\ACRlong{kS}= \ACRlong{kS} 
+	\item[Akronym ausgeschrieben+Abkürzung:] \verb=\acrfull{TL}= -> \acrfull{TL}
+	\item[Akronym erster Buchstabe\&ausgeschrieben+Abkürzung:]\verb=\Acrfull{TL}= -> \\ \Acrfull{TL}
+	\item[Akronym groß\&ausgeschrieben+Abkürzung:] \verb=\ACRfull{TL}= -> \\ \ACRfull{TL}
+	\item [Akronym hover erter Aufruf:] \verb=\acfirst{TL}= -> \acfirst{TL}
+	\item [Akronym benutzt hover:] \ac{TL}
+\end{description}	
+
+
+\subsection{SIUINTx}
+\label{subsec:siunitx}
+In diesem Abschnitt wird erklärt, wie das Package SIUNITX verwendet wird. Die Verwendung dieses Packages ermöglicht die Aufwandsarme und richtige Formatierung von Formeln und Einheiten. Zwischen Zahlen und Einheiten gehört ein halbes geschütztes Leerzeichen, welches mit \textbackslash, erzeugt werden kann. 
+
+\begin{description}
+	\item[Einheit:] \begin{verbatim}
+		\si{\watt} = \si\{\square\metre\kilo\gram\per\cubic\second\} -> 
+	\end{verbatim} 
+		 $\si{\watt} = \si{\square\metre\kilo\gram\per\cubic\second}$
+	\item[Zahl+Einheit:] \verb=\SI{1}{\mHz} -> \SI{1}{\mHz}= \\
+					 \verb=\SI{1}{\mu\N}= -> \SI{1}{\mu \newton}
+	\item[Exponent:] \verb=\SI{1e-4}{\meter}=	-> \SI{1e-4}{\meter}
+	\item[Range:] \verb=\SIrange{1}{7}{\newton}= -> \SIrange{1}{7}{\newton}
+	\item[Liste:] \verb=\SIlist{1;3;5;7}{\kN}= -> \SIlist{1;3;5;7}{\kN}
+	\item[Winkel:] \verb=\ang{47;59;43}= -> \ang{47;59;43}
+	\item[Fehler:] \verb=\num{9.99 +- 0.09}= -> \num{9.99 +- 0.09} 
+	\item[Eigene Einheiten:] Es können eigene Einheiten deklariert werden. \\ \verb=\DeclareSIUnit\lightyear{ly} ermöglicht  \SI{1}{\lightyear}= -> \SI{1}{\lightyear}
+\end{description}
+Das Paket stellt zwei zusätzliche Spaltentypen S und c zur Verfügung. Wobei S für die Zahlen und s für die Einheit verwendet werden. Die Zahlen werden zentriert am Dezimalkomma beziehungsweise Punkt ausgerichtet. Die Spalte für die Einheiten (c) wird per default zentriert ausgerichtet. Sollen die Spalten für Zahlen (S) beschriftet werden, muss der Text geklammert \{Text\} werden.
+
+\noindent
+\begin{table}[H]
+	\centering
+	\caption[Kurz SIUNITX]{Lange Überschrift für SIUNITX}
+	\begin{tabular}{l c S[table-format=10.9] S[retain-zero-exponent=true]}
+		\toprule
+		\multicolumn{4}{c}{SI Prefixes} \\
+		\addlinespace %\midrule
+		Prefix & Symbol & {Multiplication Factor} & {\dots\ in Scientific Notation} \\
+		\midrule
+		giga  & \siprefix{\giga} & 1000000000 & e9 \\
+		mega  & \siprefix{\mega} & 1000000    & e6 \\ 
+		kilo  & \siprefix{\kilo} & 1000       & e3 \\
+		deca  & \siprefix{\deca} & 10         & e1 \\ % "\deka" works too
+		\rowcolor{gray!20}  -- & -- & 1 & e0 \\
+		deci  & \siprefix{\deci} & 0.1        & e-1 \\
+		centi & \siprefix{\centi}& 0.01       & e-2 \\
+		milli & \siprefix{\milli}& 0.001      & e-3 \\
+		micro & \siprefix{\micro}& 0.000001   & e-6 \\
+		nano  & \siprefix{\nano} & 0.000000001& e-9 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Eine deutsche Dokumentation ist unter \href{https://www.namsu.de/Extra/pakete/Siunitx.html}{https://www.namsu.de/Extra/pakete/Siunitx.html} zu finden.
+Die vollständige Dokumentation ist unter \href{https://ctan.org/pkg/siunitx?lang=de}{cta.org} zu finden. In der Originaldokumention befindet sich eine Tabelle mit weiteren kurzen Einheiten wie \textbackslash kN.
+
+	 
+\section{Bilder}
+\label{sec:bilder}
+
+\begin{figure}[H]
+	\centering
+	\input{bilder/Kapitel1/test.tex}
+	\caption[Ü-kurz]{Test lange Überschrift}
+	\label{abb:test}
+\end{figure}
+
+
+\section{Tabellen}
+\label{sec:tabellen}
+
+\rowcolors{1}{lightrowcolor}{white} % schöne Tabellen
+\begin{table}[H]%[htb]
+	\centering
+		\caption[Kurz für Verzeichnis]{Randbedingungen der Längsplanung einschließlich Abtastung}
+		\label{tab:rand}
+	\begin{tabular}{p{4.7cm}|p{2cm}|p{2cm}|p{2cm}|p{2.3cm}}
+		\rowcolor{headrowcolor}
+		Parameter & Minimum & Maximum & Abtastung & Komplexität \\ \hline
+		Geschwindigkeitsdifferenz & -12 & 12 & 3 & 9 \\ 
+		Beschleunigung (Anfang) & -2 & 2 & 1 & 5 \\ 
+		Ruck(Anfang) & -2 & 2 & 1 & 5 \\ 
+		& & & & \\
+		&  &  & Gesamt & 225 \\ 
+	\end{tabular} 
+
+	\label{tab:param_raster_laengs}
+\end{table}
+\rowcolors{1}{}{} % schöne Tabellen deaktivieren
+
+
+\section{Quellen}
+\label{sec:quellen}
+
+Meine Quelle: 
+\begin{description}
+	\item[Quelle:] \verb=\cite{Dembowski.2011}= -> \cite{Dembowski.2011}
+\end{description}

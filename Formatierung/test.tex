@@ -1,0 +1,94 @@
+% ---------- nomenclature base style ----------------------------------------
+%\newcounter{glosmath@mainEntryCtr}% 
+%\newlength{\glosmath@curNameLen}%	
+%\newcommand*{\glosstyledesc}[1]{}%
+% Hier eintragen welche Listen mit Einheit angezeigt werden sollen.
+% Möglichkeiten: latin, greek, vecMat, subscript, operator, abbrv
+\newcommand{\miteinheit}{latin, greek, vecMat}
+
+\renewglossarystyle{glosmath@glostyle}%
+{%
+	\setglossarystyle{alttree}% based on alttree style
+	\renewenvironment{theglossary}%
+	{%
+		\let\glosmath@oldparskip\parskip%
+		\setlength{\parskip}{0pt}%
+		\let\glosmath@oldparindent\parindent%
+		\setlength{\parindent}{0pt}%
+	}%
+	{%
+		\setlength{\parskip}{\glosmath@oldparskip}%
+		\setlength{\parindent}{\glosmath@oldparindent}%
+	}%
+	\renewcommand*{\glossaryheader}%
+	{%
+		\iftoggle{glosmath@singlelineskip}{%
+			\ifdefined\SingleSpacing\SingleSpacing\fi% memoir class
+			\ifdefined\singlespacing\singlespacing\fi% setspace package
+		}{}%
+	}%
+	\setcounter{glosmath@mainEntryCtr}{0}%
+	\setlength{\glosmath@curNameLen}{\glstreeindent}%
+	% desc in all languages of the style (default to main language only) :
+	\renewcommand*{\glosstyledesc}[1]{\glsentrydesc{##1}}%
+	\renewcommand*{\glossentry}[2]%
+	{%
+		\ifnum\value{glosmath@mainEntryCtr}>0\vspace{\baselineskip}\fi%
+		\glstarget{##1}{\glscatnamefmt{\glosstyledesc{##1}}}%
+		\par\nopagebreak%
+		\stepcounter{glosmath@mainEntryCtr}%
+	}%
+	\renewcommand*{\subglossentry}[3] {%
+		\IfStringInList{\glsentryparent{##2}}{\miteinheit}{%		Wenn parent = latin 
+			\settowidth{\glstreeindent}{\@glswidestname\glstreepredesc}%
+			\hangindent\glstreeindent%
+			\settowidth{\glosmath@curNameLen}{\glossentryname{##2}\glstreepredesc}%
+			% larger namebox for entries longer than @glswidestname :
+			\ifdimgreater{\glosmath@curNameLen}{\glstreeindent}{%
+				\setlength{\glstreeindent}{\glosmath@curNameLen}}{}%
+			\glstreenamebox{\glstreeindent}{%
+				\glstarget{##2}{\glossentryname{##2}}%
+			}%
+			\ifglshassymbol{##2}{
+				\settowidth{\glstreeindent}{\@glswidestname\glstreepredesc}%
+				\hangindent\glstreeindent%
+				\settowidth{\glosmath@curNameLen}{\glossentrysymbol{##2}\glstreepredesc}%
+				% larger namebox for entries longer than @glswidestname :
+				\ifdimgreater{\glosmath@curNameLen}{\glstreeindent}{%
+					\setlength{\glstreeindent}{\glosmath@curNameLen}}{}%
+				\glstreenamebox{\glstreeindent}{%
+					\glstarget{##2}{\glossentrysymbol{##2}}%
+				}%
+			}{
+				\settowidth{\glstreeindent}{\@glswidestname\glstreepredesc}%
+				\hangindent\glstreeindent%
+				\settowidth{\glosmath@curNameLen}{\glstreepredesc}%
+				% larger namebox for entries longer than @glswidestname :
+				\ifdimgreater{\glosmath@curNameLen}{\glstreeindent}{%
+					\setlength{\glstreeindent}{\glosmath@curNameLen}}{}%
+				\glstreenamebox{\glstreeindent}{%
+					\glstarget{##2}{}%
+				}%
+			}
+			%		\ifglshassymbol{##2}{\glossentrysymbol{##2} ,\space}{}%
+			\glosstyledesc{##2}%
+			
+			\par%
+		}%
+		{% else
+			\settowidth{\glstreeindent}{\@glswidestname\glstreepredesc}%
+			\hangindent\glstreeindent%
+			\settowidth{\glosmath@curNameLen}{\glossentryname{##2}\glstreepredesc}%
+			% larger namebox for entries longer than @glswidestname :
+			\ifdimgreater{\glosmath@curNameLen}{\glstreeindent}{%
+				\setlength{\glstreeindent}{\glosmath@curNameLen}}{}%
+			\glstreenamebox{\glstreeindent}{%
+				\glstarget{##2}{\glossentryname{##2}}%
+			}%
+			\glosstyledesc{##2}%
+			
+			\par%
+		}%
+	}%
+}%
+

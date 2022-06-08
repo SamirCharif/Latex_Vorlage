@@ -54,7 +54,7 @@
 \begin{document}\selectlanguage{ngerman}
 	
 	\onehalfspacing
-	\input{Kapitel/titelblatt.tex}
+	\input{Formatierung/titelblatt.tex}
 
 	%	% Inhaltsverzeichnis
 	\cleardoublepage % Seitenumbruch erzwingen vor Änderung des Nummerierungsstils
@@ -93,10 +93,18 @@
 
 	
 %	 Abbildungsverzeichnis einbinden
-	\input{Kapitel/anhang_abbildungsverzeichnis.tex}
+	\cleardoublepage
+	\ihead[]{Abbildungsverzeichnis}
+	\listoffigures
+	
 	
 	% Tabellenverzeichnis einbinden
-	\input{Kapitel/anhang_tabellenverzeichnis.tex}
+	\cleardoublepage
+	\ihead[]{Tabellenverzeichnis}
+	\listoftables
+	\newpage
+	\ihead[]{\headmark}
+	
 	
 %
 	

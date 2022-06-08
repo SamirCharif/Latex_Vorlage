@@ -1,0 +1,510 @@
+%  Instalation der Pakete: 
+%  * Version 1.0
+%  * Samir Charif
+%  * s.charif@tu-braunschweig.de
+%  * Student, TU Braunschweig
+%  * Mai 2022
+%
+%  Für Hauptseminare, Studienarbeiten, Diplomarbeiten
+%
+%  Autor           : Max Mustermann
+%  Letzte Änderung : Morgen
+%
+\newcommand\myBCOR{17mm}
+
+\documentclass
+[   twoside=false,     % Einseitiger oder zweiseitiger Druck?
+twocolumn=false,%			zweispaltiger Satz
+fontsize=12pt,     % Bezug: 12-Punkt Schriftgröße
+DIV=15,            % Randaufteilung, siehe Dokumentation "KOMA"-Script
+BCOR=\myBCOR,         % Bindekorrektur: Innen 17mm Platz lassen. Copyshop-getestet.
+%    headsepline,
+headsepline=true,  % Unter Kopfzeile Trennlinie (aus: headnosepline)
+footsepline=true,  % Über Fußzeile Trennlinie (aus: footnosepline)
+open=right,        % Neue Kapitel im zweiseitigen Druck rechts beginnen lassen
+paper=a4,          % Seitenformat A4
+chapterentrydots=true,%	Inhaltsverzeichnis dotfill für Kapitel
+chapterprefix=false,%		Kapitelprefix für mainmatter
+appendixprefix=false,%		Kapitelprefix für Anhang
+abstract=true,     % Abstract einbinden
+listof=totoc,      % Div. Verzeichnisse ins Inhaltsverzeichnis aufnehmen
+bibliography=totoc,% Literaturverzeichnis ins Inhaltsverzeichnis aufnehmen
+%bibliography=oldstyle,%		Formatierungsstil des Literaturverzeichnisses %openstyle
+titlepage=true,         % Titelseite aktivieren
+headinclude=true,  % Seiten-Head in die Satzspiegelberechnung mit einbeziehen
+footinclude=false, % Seiten-Foot nicht in die Satzspiegelberechnung mit einbeziehen
+numbers=noenddot,   % Gliederungsnummern ohne abschließenden Punkt darstellen
+index=default,%				Index im Inhaltsverzeichnis %totoc %numbered
+DIV = 15,		%Type area settings (See KOMA-Script p.36) DIV-Wert fuer die Erstellung des Satzspiegels, siehe scrguide	%calc
+%parskip=false,%				Der erste Absatz eines Abschnitts wird nicht eingezogen
+%parskip=half,%				Absatzabstand statt Absatzeinzug
+captions=tableheading, %
+draft=false,%				Keine Bilder in der Anzeige, overfull hboxes werden angezeigt
+greek, english, ngerman %Languages the last one decides about the automatically created text
+]   {scrreprt}         % Dokumentenstil: "Report" aus dem KOMA-Skript-Paket
+
+%\usepackage[first,light]{draftcopy} % Für Probedruck
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Handling
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\usepackage{ifthen}		% 
+
+\usepackage{verbatim}  % Mehrzeilige Kommentare ohne % vor jeder Zeile. 
+%\begin{verbatim}
+%Leider funktioniert es nicht so, dass eine verbatim Umgebung
+%einfach in eine andere geschrieben werden kann. Stattdessen kommt
+%der Befehl \verb+Irgendwas+ zum Einsatz um den Quellecode zu zeigen.
+%\end{verbatim}
+%\begin{comment}
+%Der Text der innerhalb der \emph{comment} Umgebung steht 
+%wird nicht ausgegeben und es werden auch keine Befehle 
+%abgearbeitet.
+%\end{comment}
+
+
+% Für TU BS
+\usepackage{scrhack}
+\usepackage{ifluatex}
+\ifluatex \else \usepackage{scrwfile} \fi		% Verbindet Befehle und führt die aus
+\usepackage{etoolbox}		%  
+
+
+\usepackage{scrhack} 		% scrhack redefines macros of packages
+
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Sprachen, Text und Eingabekodierung
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\usepackage[english, main=ngerman, headfoot=ngerman]{babel}   % Sprachpakete / Worttrennung / die letzte Sprache wird als Standart ausgewählt
+\usepackage{textgreek} 		   % griechische Buchstaben im Text
+
+%\usepackage[T1]{fontenc} 	  % Festlegen der Schriftart / Option T1
+%\usepackage[latin1]{inputenc} % Zeichencodierung nach ISO-8859-1
+%ermöglicht das Verwenden von Umlauten  (Westeuropa)  Umlaute für Westeuroüa
+\ifluatex
+	\usepackage[utf8]{luainputenc}%				Nötig um Umlaute zu tippen. Alternativ: latin1
+\else
+	\usepackage[utf8]{inputenc}   %	Zeichencodierung nach UTF-8 (Unicode) / 
+\fi
+
+\ifluatex
+%% if using luatex and not using latexmk, this can be use for executing bib2gls
+\directlua{local t = os.execute("bib2gls --tex-encoding UTF-8 --group " .. status.filename:sub(1, -5))
+print(t)
+}
+\else
+\usepackage[T1]{fontenc}%				font encoding
+\fi
+
+
+\usepackage{lmodern}		  % Das lmodern (= Latin Modern) Paket verändert die verwendete Schriftart --> Darstellung erscheint flüssiger
+
+
+
+
+\usepackage[normalem]{ulem}		% Unterstreichen von Absätzen
+
+%\usepackage[autostyle]{csquotes}
+\usepackage{csquotes}			% Anführungzeichen an die Sprache angebpasst \enquote{Menu}
+
+% Improved typesetting
+%\usepackage[final]{microtype} 
+%\usepackage{microtype} 
+%		\RequirePackage[all]{nowidow}
+%		\DeclareMicrotypeAlias{ }{TU-basic}
+\usepackage{textcomp} % Setup microtype and siunitx
+\usepackage{xstring}	%String manipulation
+\newcommand\IfStringInList[2]{\IfSubStr{,#2,}{,#1,}}	% für das Suchen von Strings in Listen
+
+\usepackage{setspace}
+
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Rand und Formatierung
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%\usepackage[activate=normal]{pdfcprot} 	% Optischer Randausgleich -> pdflatex!
+\usepackage{setspace}				   	% Einstellen des Zeilenabstands, Zeilenabstand in Fusßnoten wird nicht gändert. Einstellmöglichkeiten: singlespacing, onehalfspacing, doublespacing
+
+\usepackage[automark]{scrlayer-scrpage} % individuelle Kopf- und Fußzeilen
+
+
+% Tiefe der Kapitelnummerierung beeinflussen
+\setcounter{secnumdepth}{3} % Tiefe der Nummerierung
+\setcounter{tocdepth}{2}    % Tiefe des Inhaltsverzeichnisses
+
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Formelzeichen
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%\usepackage[
+%nonumberlist, %keine Seitenzahlen anzeigen
+%toc,          %Einträge im Inhaltsverzeichnis
+%section=chapter]      %im Inhaltsverzeichnis auf section-Ebene erscheinen
+%{glossaries}
+%%\usepackage{hyperref}
+
+
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Tabellen
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% \usepackage[table]{xcolor} % Farben in Tabellen
+\usepackage{makecell}	   % Alignment der Zellen /Tabellarische Säulenköpfe und mehrzeilige Zellen
+
+%\usepackage{tabularx}		% Tabellarische Übersichten mit einstellbarer Spaltenbreite
+%\usepackage{longtable}		% Zulassen, dass Tabellen über Seitengrenzen hinweg fließen
+\usepackage{ltxtable}		% longtable + tabularx
+\usepackage{multirow}		% Erstellen von Tabellenzellen, die sich über mehrere Zeilen erstrecken
+\usepackage{booktabs}		% Tabellenformatierung
+%\usepackage[hang, bf, font=small, textformat=period]{caption}%
+\usepackage{caption}
+\usepackage{subcaption}		% Package um subfigure zu erstellen
+\usepackage{colortbl} 		% Support for colors in tables
+
+\usepackage{array,			%
+			ragged2e,		%  Alignment der Zellen 
+			calc}			% fügt Infix-Ausdrücke hinzu, um die Argumente der LATEX-Befehle arithmetisch zu bearbeiten 
+\usepackage{lscape}			% Ausgewälte Bereiche können im Querformat angzeigt werden
+\usepackage[flushleft]{threeparttable} % Tabellen mit Beschriftungen und Notizen in gleicher Breite
+%%Adjust line thickness
+%\setlength{\heavyrulewidth}{0.15em}
+%\setlength{\lightrulewidth}{0.05em}
+%\setlength{\cmidrulewidth}{0.05em}
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Grafiken
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\ifluatex
+%	\usepackage[luatex]{graphicx}%			Package um grafiken zu includieren
+	\RequirePackage[svgnames, table, luatex]{xcolor}
+\else
+	\usepackage[pdftex]{graphicx}%
+	\RequirePackage[svgnames, table, pdftex]{xcolor}
+\fi
+\usepackage[svgnames, table]{xcolor}%				Farbkonversion etc.
+%\usepackage{graphicx}		% Einbinden von Bildern. 
+%				 final: hebt draft auf
+%				 draft: anstatt der bilder wird nur ein Kasten angezeigt --> schnelleres kompelieren
+% \usepackage{grffile}  % Das Paket erweitert die Dateinamenverarbeitung des Grafikpakets, um einen größeren Bereich von Dateinamen zu unterstützen. Der Dateiname kann zum Beispiel mehrere Punkte enthalten.
+\graphicspath{{../Bilder}} % Verzeichnis der Bilder
+
+\usepackage{rotating}		% Rotieren von Bildern Tabellen, ganzen Seiten
+
+%%% Modifications
+\usepackage{float}		% Automatische Platzierung von Grafiken im Dokument / https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_s
+%\restylefloat{figure}	% Rahmen um Bilder
+
+%\usepackage{subfig}     % Subfigures in einer Figure erstellen
+
+%% Tikz
+\usepackage{tikz}
+\usepackage{tikzpagenodes} %Defines extra anchors on the page 
+\usetikzlibrary{shapes.arrows,arrows,arrows.meta,backgrounds,calc,patterns, 
+	shapes.geometric,decorations.pathmorphing,decorations.markings,decorations.text,matrix,fit,intersections}
+
+%\usepackage[tx, RPvoltages]{circuitikz}%		Zeichnen von elektrischen Schaltbildern direkt in Latex
+
+
+%%% Matlab2tikz
+\usepackage{pgfplots}	% PGFPlots zeichnet hochwertige Funktionsdiagramme 
+%\pgfplotsset{compat=newest}	% newest = neuste, nicht empfohlen
+\pgfplotsset{compat=1.3} % 1.3 Standartwert, empfohlenen Wert aus Logfile suchen
+%% the following commands are needed for some matlab2tikz features
+\usetikzlibrary{plotmarks}	% Plotmakierungen wie Sterne etc
+\usetikzlibrary{arrows, arrows.meta, shapes.geometric}
+
+\usepgfplotslibrary{patchplots}	% Patch-Plots ähneln den Mesh- und Surf-Plots insofern, als sie eine gefüllte Fläche anhand einer Geometrie beschreiben.
+
+
+\usepackage{pdfpages} 		% Einfügen von PDFs
+
+
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Verlinkung
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\usepackage[active]{srcltx}		% Dieses Paket bietet eine spezielle Einfügung von Quellen in DVI-Dateien, die es ermöglicht von der DVI-Datei zum .tex-Quelltext und zurück zu springen (vorausgesetzt ein DVI-Viewer der dies unterstützt). Zusätzlich bietet es Hooks für die Fehlerverfolgung aus der .log-Datei für die WinEdt-Shell.
+
+\usepackage[T1]{url}			% Verlinkungen von URLs
+%\usepackage{hyperref}			% Verlinkung von URLs und Verweisen
+%hyperref wird von pdfcomment geladen 
+ 
+\usepackage[plainpages=false,pdfpagelabels,hypertexnames=false]{hyperref}   % Verlinkung von URLs und Verweisen
+			% plainpages: Erzwingt die Benennung von Seitenankern nach der arabischen Form der Seitenzahl benannt werden und nicht nach der formatierten Form.
+			% pdfpagelabels: PDF-Seitenbeschriftungen festlegen
+			% hypertexnames: benutzt erratbare Namen für Links verwenden
+
+\usepackage{cooltooltips}
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Formelen
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\usepackage{amsmath} % Mathe Umgebung
+%\usepackage{amsfonts}%				Standard fonts
+\usepackage{amssymb}	%	Pfeile Symbole
+\usepackage{gensymb}	% 	Einheiten für Text und Mathmode
+\usepackage{array}		% Eine erweiterte Implementierung der Array- und Tabellenumgebung, die die Optionen für Spaltenformate erweitert und "programmierbare" Formatspezifikationen bietet
+\usepackage{mathtools}%				Multiline and split equations / Formattierung
+\usepackage{relsize}	% Änderung der Relativen größe einzelner Symbole in Formeln
+\usepackage{mleftright}	% Das Paket definiert Varianten \mleft und \mright von \left und \right, die die Begrenzungszeichen wie \mathopen und \mathclose wirken lassen. Diese Befehle beheben Probleme mit den Abständen in Unterformeln.
+	\mleftright%
+\ifluatex
+\usepackage{lualatex-math}%		patches a few commands of the LaTeX2ε kernel and the amsmath and mathtools packages
+\fi
+
+% comprehensive Viele Symbole
+%\usepackage{comprehensive}	% 
+
+
+
+% Tabellenspaltendefinitionen mit fester Breite --> somit Zeilenumbruch innerhalb einer Zelle möglich
+% aus http://www.torsten-schuetze.de/tex/tabsatz-2004.pdf
+\usepackage{array, booktabs}
+\newcolumntype{f}{>{$}l<{$}}
+\newcolumntype{n}{>{\raggedright}l}
+\newcolumntype{N}{>{\scriptsize}l}
+\newcolumntype{v}[1]{>{\raggedright\hspace{0pt}}m{#1}}
+\newcolumntype{V}[1]{>{\scriptsize\raggedright\hspace{0pt}}m{#1}}
+\newcolumntype{Z}[1]{>{\raggedright\centering}m{#1}}
+\newcolumntype{k}[1]{>{\raggedright}p{#1}}
+% ergibt Tabllenspalte fester Breite, linksbündig
+% Umbruch innerhalb der Zelle mit \\, neue Tabellezeile mit \tabularnewline
+% \addlinespace für Gruppentrennung (aus \texttt{booktabs.sty})
+
+
+% Einheiten
+\usepackage[allow-number-unit-breaks=false, % Kontroliert den Zeilenumbruch zwischen Zahl und Einheit
+	range-units=single,		% Bei einer Range wird die Einheit nur hinter der letzten Zahl angezeigt
+	list-units = single,	% Bei einer Liste wird die Einheit nur hinter der letzten Zahl angezeigt
+	exponent-product = \ensuremath{\cdot}, % Zwischen exponent und Zahl mit Punkt trennen
+	separate-uncertainty %Mit der Option separate-uncertainty wird zwischen der Zahl und dem Fehlerterm ein Plusminuszeichen gesetzt.
+	]{siunitx}
+\sisetup{
+	locale = DE,% 	% Stellt das Paket auf deutsch -> Trennzeichen sind Kommas etc.
+	detect-all,%
+	% 		scientific-notation = engineering,%
+	list-final-separator = { und },	
+	list-pair-separator = { und },%
+	list-units = single,	% Bei Aufzählungen werden in der From 1 bis 7 N dargestellt
+	range-phrase = { bis },%	 Bei Aufzählungen werden in der From 1 bis 7 N
+	per-mode = symbol,%
+	output-complex-root = j,%
+}
+	% Benutzer derfinierte Einheiten deklarieren
+	\DeclareSIUnit[]\dBm{dBm}
+	\DeclareSIUnit[]\dBW{dBW}
+	\DeclareSIUnit\ions{Ions}
+	\DeclareSIUnit\lightyear{ly}  
+
+% Benutzerdefiniert Befehle für SIUnitx
+\NewDocumentCommand{\siprefix}{m}{%
+	\unit{#1\nonexistentunitjustforprefixes}%
+}
+\DeclareSIUnit{\nonexistentunitjustforprefixes}{\relax}
+
+% Um Konflikt zwishcen siunitx und physics bezüglich \qty zu vermeiden	
+%\let\svqty\qty	
+%\usepackage{physics}
+%\let\qty\svqty
+
+% Berechnungen in Latex
+\usepackage{calc}%							Hilfspaket um mit Latex variablen zu rechnen
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Programcode im Text
+%% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\usepackage{listings} 	% Ermöglicht das Verwendden con Programcode im Text
+%\lstnewenvironment{matlab}[1][]{
+%	\lstset{
+%		backgroundcolor=\color{white}, %\color{TUgreen!20}, %\color{gray!20}
+%		fillcolor=,% %\color{black},
+%		captionpos=t,% b
+%		tabsize=4,%
+%		rulecolor=\color{black},%
+%		rulesepcolor=\color{gray!30},%
+%		language=Matlab,%
+%		basicstyle=\small,%
+%		numbers=left,%
+%		numberfirstline=true,%
+%		numberblanklines=true,%
+%		stepnumber=1,%
+%		numbersep=5pt,%
+%		numberstyle=\scriptsize,%
+%		upquote=true,%
+%		aboveskip={0\baselineskip},%
+%		% 		belowskip=\baselineskip,%
+%		columns=flexible,% %fixed,
+%		showstringspaces=false,%
+%		extendedchars=true,%
+%		breaklines=true,%
+%		breakatwhitespace=true,%
+%		prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\color{black}\hookleftarrow}},%
+%		breakautoindent=true,%
+%		frame=single,% %tblr, %shadowbox, %tblrTBLR,
+%		frameround=ffff,% %tttt,
+%		showtabs=false,%
+%		showspaces=false,%
+%		showstringspaces=false,%
+%		identifierstyle=\ttfamily,%
+%		basicstyle=\ttfamily\color{black},%
+%		keywordstyle=\ttfamily\bfseries\color{MidnightBlue},%
+%		commentstyle=\color{tudark},% %\color{MediumTurquoise},
+%		stringstyle=\color{DarkOrchid},%
+%		mathescape=true,%
+%		showlines=true,%
+%		escapechar=§,%							escape to latex
+%		abovecaptionskip=0\smallskipamount,%
+%		belowcaptionskip=3\smallskipamount,%
+%		xleftmargin=1.25\baselineskip,%
+%		xrightmargin=0pt,
+%		#1,%									add more options from the optional parameter
+%}}{}
+\lstset{numbers=left,stepnumber=2,, numberstyle=\tiny, numbersep=5pt, basicstyle=\small, language=Matlab}	% Einstellungen des liltings Packages
+% used Language
+% \lstset{language=Matlab}
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% PDF
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\usepackage{pdfcomment} 	% Ermöglicht das kommentieren in PDF Files
+
+\hypersetup{plainpages=false,hypertexnames=false}
+
+\usepackage{hyperxmp} 		% metadata addon
+
+
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Verzeichnisse
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\usepackage{scrhack}		% Entfernt Fehler von nym der durch Verwendung alter Biliotheken entsteht.
+%\usepackage[printonlyused,nohyperlinks]{acronym} % Abkürzungsverzeichnis
+		% footnote: Bei der Verwendung der Option footnote wird die Langform der Abkürzung als Fußnote in das Dokument eingefügt.
+		% nohyperlinks: Die Option nohyperlinks wird die Verlinkung der Abkürzung, bei gleichzeitiger Verwendung des hyperref Paktes verhindert.
+		% printonlyused: Mit der Option printonlyused werden nur die Abkürzungen ausgegeben, die auch innerhalb des Dokumentes verwendet worden sind. Wird diese Option verwendet kann auch die Option withpage genutzt werden, sie dient dazu die entsprechende Seitenzahl anzuzeigen.
+		% smaller: Die Option smaller verkleinert die Anzeige der Abkürzung im Dokument.
+		% dua: Wird die Option dua gesetzt, wird immer die Langform der Abkürzung angezeigt. Es sei denn es wurden die Kurzform Befehle wie etwa \acs{Kuerzel} oder \acsp{Kuerzel} verwendet. In diesen Fällen wird dann auch bei der gesetzten Option dua die Kurzform im Dokument dargesetellt.
+		% nolist: Die Option nolist führt dazu, dass keine Übersicht von den Abkürzungen erstellt wird.
+
+		% Eigener Plural möglich
+
+		
+%% Textbefehle für das glostools Package
+\newcommand{\markup}[1]{\textbf{#1}}	% Fettschreiben
+
+%% -- glostools --> Nomenkaltur 
+\usepackage[qtmarkupright,	% define char <"> as shortcut for "sbu" macro in math mode  and define qtmark macro to show the quotation mark character
+	singlelineskip,	% zeilenabstand im Verzeichnis für größeren Abstand auskommentieren
+	 toc]{glosmathtools}
+% Hier eintragen welche Listen mit Einheit angezeigt werden sollen.
+% Möglichkeiten: latin,greek,vecMat,subscript,operator,abbrv -> keine Leerzeichen!
+\newcommand{\miteinheit}{latin,greek}
+\usepackage{Formatierung/glosstyle}
+%\input{Formatierung/test.tex}
+\makeglossaries% executed in first
+\setacronymlang{L1}% first language abbreviations
+\setglossarystyle{nomencl-L1}% bilingual description
+\loadglsentries{Kapitel/sample_glosmathtools_glos} % definition file
+\glssetwidest{LOOP}  % IMPORTANT : widest entry in nomenclature
+
+
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Seitenlayout und Kapitel Formatierung
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+% Seitenlayout festlegen. Hier nichts ändern!
+\pagestyle{scrplain}
+\ihead[]{\headmark}
+\ohead[]{\pagemark}
+\chead[]{}
+\ifoot[]{}
+\ofoot[]{\scriptsize \artderausarbeitung\ \namedesautors}
+\cfoot[]{}
+\renewcommand{\titlepagestyle}{scrheadings}
+\renewcommand{\partpagestyle}{scrheadings}
+\renewcommand{\chapterpagestyle}{scrheadings}
+\renewcommand{\indexpagestyle}{scrheadings}
+
+% Abschnittsweise Nummerierung anstatt fortlaufend. Hier nichts ändern!
+\makeatletter
+\@addtoreset{equation}{chapter}
+\@addtoreset{figure}{chapter}
+\@addtoreset{table}{chapter}
+\renewcommand\theequation{\thechapter.\@arabic\c@equation}
+\renewcommand\thefigure{\thechapter.\@arabic\c@figure}
+\renewcommand\thetable{\thechapter.\@arabic\c@table}
+\makeatother
+
+% Quelltextrahmen, klein. Hier nichts ändern!
+\newsavebox{\inhaltkl}
+\def\rahmenkl{\sbox{\inhaltkl}\bgroup\small\renewcommand{\baselinestretch}{1}\vbox\bgroup\hsize\textwidth}
+\def\endrahmenkl{\par\vskip-\lastskip\egroup\egroup\fboxsep3mm%
+	\framebox[\textwidth][l]{\usebox{\inhaltkl}}}
+
+% Quelltextrahmen, normale Groesse. Hier nichts ändern!
+\newsavebox{\inhalt}
+\def\rahmen{\sbox{\inhalt}\bgroup\renewcommand{\baselinestretch}{1}\vbox\bgroup\hsize\textwidth}
+\def\endrahmen{\par\vskip-\lastskip\egroup\egroup\fboxsep3mm%
+	\framebox[\textwidth][l]{\usebox{\inhalt}}}
+%
+
+
+
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Literaturverzeichnis
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%\usepackage[style=ieee, backend=bibtex]{biblatex}
+%\addbibresource{literatur}
+
+
+\usepackage[
+backend=biber,
+%style=numeric, %alphabetic
+style=ieee,
+sortlocale=de_DE,
+natbib=true,
+url=false, 
+doi=false,
+eprint=false,
+isbn=false,
+giveninits=true,
+minbibnames=1,
+maxbibnames=2
+]{biblatex}
+
+%Supression of the note field
+\AtEveryBibitem{%
+	\clearfield{note}%
+}
+
+%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%%% TU Braunschweig Schriftart und Fraben
+%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\usepackage{tubscolors}
+\usepackage{tubslogo}
+
+%%\usepackage{fontspec}
+%%\setmainfont{NexusSerifPro}[%
+%%Path = ./fonts/otf/,%
+%%Extension = .otf,%
+%%UprightFont = *-Regular,%
+%%BoldFont = *-Bold]%
+%%
+%%\setsansfont{NexusSansPro}[%
+%%Path = ./fonts/otf/,%
+%%Extension = .otf,%
+%%UprightFont = *-Regular,%
+%%BoldFont = *-Bold]%
+%
+%

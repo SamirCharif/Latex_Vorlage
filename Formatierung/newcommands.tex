@@ -1,0 +1,87 @@
+%  Neue Befehle:
+%  * Version 1.0
+%  * Samir Charif
+%  * s.charif@tu-braunschweig.de
+%  * Student, TU Braunschweig
+%  * Mai 2022
+%
+
+
+
+
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Befehlre fürs hovern
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% to use reference put the glsc.cwl in AppData\Roaming\texstudio\completion\user (if file is lost, then create one with equivalent name and write '/glsc{label}#r' into it), analog für die anderen Befehle mit \pdftooltip
+%restart TexStudio
+% after that go to 'Configurate TexStudio' (tab Options) and select the Completement Tab. Check the new file in that list and its done. 
+\newcommand*{\glsh}[1]{\pdftooltip{\gls*{#1}}{\glsentrydesc{#1}}}
+% "sbu" macro : shortcut for upright indices (ISO/NIST standard
+% operatorfont for main document math font (serif or sans)
+%\newcommand*{\sbuc}[1]{\pdftooltip{\sbu*{#1}}{_{\operatorfont{#1}}}}%
+% ---------- glsvisub ----------------------------------------------------
+% show $a_{b_c}$ with link to "a", variable "b" and subscript "sub.c"
+% 4 arguments : 3 mandatory arguments and optional 1st and 2nd argument
+% for adding accent on "a" and "b"
+%\newcommand*{\glsvisubh}[#1]{\pdftooltip{\glsvisub*{#1}}{\glosmath@glsvisubRelay{#1}}}%s
+
+% achtung funktioniert nur mit nohyperlinks im usepackage des acronym paketes, * zum unterdrücken hier leider nicht wirksam
+\newcommand*{\ac}[1]{\pdftooltip{\acrshort*{#1}}{\acrlong{#1}}}
+% da die Funktion von \ac, dass beim ersten Aufruf die lange UND Kurze version abgebildet wird durch die redefinition abgeschaltet ist
+% bei erster Nutzung wird daher dieser Befehle benötigt
+\newcommand*{\acfirst}[1]{\pdftooltip{\acrfull*{#1}}{\acrlong{#1}}}
+
+
+% Bsp. für neue Mathe Befehle 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\diag}{\ensuremath{\text{diag}}}
+
+
+%% Bildformatierung
+\newlength\figureheight
+\newlength\figurewidth
+
+%% Textbefehle
+%\newcommand{\markup}[1]{\textbf{#1}}	% Fettschreiben
+
+
+\RequirePackage{iftex}
+\ifluatex
+\RequirePackage{luatex85}
+\fi
+
+
+
+%
+%\newif\ifcoolpdf
+%\ifpdf
+%\ifluatex
+%\coolpdftrue
+%\fi
+%\ifpdftex
+%\coolpdftrue
+%\fi
+%\fi
+%
+%\ifcoolpdf
+% \AtEndDocument{%
+%	 \immediate\pdfobj {
+%		 <<
+%		 /Fields [\ctip@form@fields]
+%		 /NeedAppearances true
+%		 >>
+%		 }%
+%	 \pdfcatalog {
+%		 /AcroForm \the\pdflastobj\space 0 R
+%		 }%
+%	 }
+% \fi
+% 
+%\ifcoolpdf
+%  \setbox\@tempboxa=\hbox{}
+%  \immediate\pdfxform\@tempboxa
+%  \edef\ctip@empty@icon{\the\pdflastxform}
+%\fi
+%
+%\newcommand*{\ctip@tip@number}{0}

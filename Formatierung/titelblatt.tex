@@ -1,0 +1,85 @@
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Dekblatt
+%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%
+%  Gerüst:
+%  * Version 1.0
+%  * B. Ing. Samir Charif, s.charif@tu-braunschweig.de
+
+%
+%  Für Hauptseminare, Studienarbeiten, Diplomarbeiten
+%
+%  Autor           : Max Mustermann
+%  Letzte Änderung : 04.12.2021
+%
+% Hier in die zweite geschweifte Klammer jeweils
+% die persönlichen Daten und das Thema der Arbeit eintragen:
+
+
+
+\begin{titlepage}
+%\setlength{\voffset}{1.5cm}
+% TU Braunschweig and institute logo in the corporate design for a DIN A4 page. For a DIN A4 the pagelayout (Absenderbereich und Kommunikationsbereich) is found here: https://www.tu-braunschweig.de/presse/cd/toolbox/gestaltungsprinzipien/groessenangaben In theof a DIN A4 page the Absendebereich is 40mm thick and the margin at the right is 8mm. Moreover, the tu logo is 26mm high. 6.5mm should go inside of the Kommunikationsbereich. The logo sizes are found here: https://www.tu-braunschweig.de/presse/cd/toolbox/basis/siegel
+\begin{tikzpicture}[remember picture, overlay]
+	%Positioning the TU Logo 
+	\path let \p1 = (current page.west), \p2 = ($(current page.north)-(0,46.5mm)$), \p3 = (current page.east) % 46.5 mm is the required distance from the top of the page to the bottom of the TU logo 
+	in (\x1,\y2)--(\x3,\y2) node[anchor = south west, inner sep = 0, outer sep = 0] (tulogo) at ($(\x1,\y2)+(\myBCOR,0)$){\tubslogo};
+	%Drawing the line of the TU logo and placing the institute logo
+	\draw[tuRed, ultra thick] 
+	let \p1 =  ($(current page.east)+(-8mm,0)$), \p2 = ($(tulogo.south east)+(0,6.5mm)$), \p3 = ($(current page.north)+(0,-20mm)$) %8mm is the margin on the right (called Rahmen) and 20mm is the disatance from the topof the page to the center of the Absendebereich
+	in (\p2)--(\x1,\y2) node[anchor = east] at (\x1, \y3) {\includegraphics[height= 26mm]{Bilder/Vorlage/ima_logo}}; %26mm height mean the tu logo and the iAF logo are of similar height
+	% This is the text and header of the page as defined in the pagelayout of the KOMA script		
+	%			\draw [red](current page header area.south west)
+	%			rectangle
+	%			(current page header area.north east);
+	%			\draw [green](current page text area.south west)
+	%			rectangle
+	%			(current page text area.north east);	
+\end{tikzpicture}
+
+	\begin{large}
+	\begin{center}
+		
+		\vspace*{2.5cm}
+		
+		\LARGE{\textbf{\themaderarbeit}}
+	\end{center}
+	
+	\vspace{2cm}
+	
+	\begin{center}
+		
+		\textbf{\artderausarbeitung}\\ an der Technischen Universität Braunschweig
+		
+		\vspace{1cm}
+		
+		\begin{tabular}{l}
+			Verfasser: \namedesautors\\
+			im Studiengang: \studiengang\\
+			Matr.-Nr: \martrikelnummer
+		\end{tabular}
+	\end{center}
+	
+	\vspace{2cm}
+	
+	\noindent Erstprüfer:\\
+		\erstpruefer \\[0.5cm]
+	Betreuer:\\
+		\zweitpruefer%\\[0.5cm]
+		
+
+\end{large}
+
+\vspace{\fill}
+
+Bearbeitungszeitraum: \bearbeitungszeit  \hfill Abgabedatum: \tagderabgabe.\monatderabgabe.\jahrderabgabe
+\end{titlepage}
+
+% Einfügen einer leeren Zwischenseite
+\cleardoublepage
+
+
+
+
+
+
