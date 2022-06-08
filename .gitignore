@@ -1,14 +1,19 @@
 
 # Datein mit den folgenden Endungen werden ignoriert:
 *.aux
+*.bbl
 *.bcf
+*.blg
+*.glg
+*.glo
+*.gls
 *.lof
 *.log
 *.lot
 *.out
-*.glo
 *.ist
 *.xml
 *.gz
 *.toc
 *.upa
+*.upb
